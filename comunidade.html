@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Comunidade</title>
     <link rel="stylesheet" href="comunidade.css">
 </head>
 <body>
@@ -17,35 +17,50 @@
         <button>Eventos ▼</button>
         <button>Votações ▼</button>
         <button>Propostas ▼</button>
-        <a href="inicio.html" class="inicio" width=""><button >Início</button></a>
+        <a href="inicio.html" class="inicio"><button>Início</button></a>
+    </div>
 
-      </div>
-    
-      <div class="main">
+    <div class="main">
         <div class="top-bar">
-          <h1>Seja bem vindo a sua comunidade</h1>
-          <div class="icons">
-            <img src="config.jpg" alt="Config" width="24">
-            <img src="salvar.png" alt="Salvar" width="24">
-            <a href="perfil.html">   <img class="avatar" src="avatar.jpg" alt="Avatar"></a>
-          </div>
+            <h1>Seja bem vindo a sua comunidade</h1>
+            <div class="icons">
+                <img src="config.jpg" alt="Config" width="24">
+                <img src="salvar.png" alt="Salvar" width="24">
+                <a href="perfil.html">   
+                    <img class="avatar" src="avatar.jpg" alt="Avatar">
+                </a>
+            </div>
         </div>
+
         <center>
-        <div class="search-bar">
-          <form class="search-bar" action="#">
-            <label for="pesquisa">O que você procura?</label>
-            <input type="text" name="pesquisa" id="pesquisa" placeholder="Digite aqui..."/>
-            <select name="pesquisafilter" id="pesquisafilter">
-              <option value="">Filtro</option>
-            </select>
-          </form>
-        </div>
+            <div class="search-bar">
+                <form class="search-bar" action="#">
+                    <label for="pesquisa">O que você procura?</label>
+                    <input type="text" name="pesquisa" id="pesquisa" placeholder="Digite aqui..."/>
+                    <select name="pesquisafilter" id="pesquisafilter">
+                        <option value="">Filtro</option>
+                    </select>
+                </form>
+            </div>
         </center>
-        <div class="main-content"></div>
-      </div>
-    
-      <div class="float-button">
+
+        <div class="main-content" id="postContainer">
+            <!-- Aqui os posts vão aparecer -->
+        </div>
+    </div>
+
+    <div class="float-button" id="createPostBtn">
         <img src="drawn.png" alt="Criar" width="28">
-      </div>
+    </div>
+
+    <div id="overlay"></div>
+    <div id="postForm">
+        <input type="file" id="postImage" accept="image/*" />
+        <input type="text" id="postTitle" placeholder="Título da postagem" />
+        <textarea id="postText" placeholder="Escreva seu texto..."></textarea>
+        <button id="submitPostBtn">Publicar</button>
+    </div>
+
+    <script src="comunidade.js"></script>
 </body>
 </html>

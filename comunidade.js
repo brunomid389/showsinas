@@ -1,52 +1,69 @@
-document.getElementById('createPostBtn').addEventListener('click', function() {
-    // Mostrar o formulário para criar o post
-    document.getElementById('postForm').style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
+document.getElementById('addButton').addEventListener('click', function () {
+  document.getElementById('postForm').style.display = 'block';
+  document.getElementById('overlay').style.display = 'block';
 });
 
-document.getElementById('overlay').addEventListener('click', function() {
-    // Esconder o formulário ao clicar no overlay
-    document.getElementById('postForm').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
+document.getElementById('overlay').addEventListener('click', function () {
+  document.getElementById('postForm').style.display = 'none';
+  document.getElementById('overlay').style.display = 'none';
 });
 
-document.getElementById('submitPostBtn').addEventListener('click', function() {
-    const postImage = document.getElementById('postImage').files[0];
-    const postTitle = document.getElementById('postTitle').value;
-    const postText = document.getElementById('postText').value;
+document.getElementById('formPost').addEventListener('submit', function (e) {
+  e.preventDefault();
 
-    if (!postTitle || !postText) {
-        alert('Por favor, preencha todos os campos!');
-        return;
-    }
+  const postImage = document.getElementById('image').files[0];
+  const postTitle = document.getElementById('title').value;
+  const postText = document.getElementById('text').value;
 
-    // Criar o post visualmente
-    const postContainer = document.getElementById('postContainer');
+  if (!postTitle || !postText) {
+    alert('Por favor, preencha todos os campos!');
+    return;
+  }
 
-    const postDiv = document.createElement('div');
-    postDiv.classList.add('post');
+  // Função de censura local
+  function censurar(texto) {
+    const palavrasBanidas = ['boceta', 'Porra', 'sexo', 'puta', 'caralho', 'buceta', 'merda', 'porra', 'viado', 'foda', 'piranha', 'boquete'];
+    let censurado = texto;
 
-    // Se houver imagem, criar elemento de imagem
-    if (postImage) {
-        const img = document.createElement('img');
-        img.src = URL.createObjectURL(postImage);
-        postDiv.appendChild(img);
-    }
+    palavrasBanidas.forEach(palavra => {
+      const regex = new RegExp(palavra, 'gi');
+      censurado = censurado.replace(regex, '****');
+    });
 
-    // Título da postagem
-    const postTitleElement = document.createElement('h3');
-    postTitleElement.textContent = postTitle;
-    postDiv.appendChild(postTitleElement);
+    return censurado;
+  }
 
-    // Texto da postagem
-    const postTextElement = document.createElement('p');
-    postTextElement.textContent = postText;
-    postDiv.appendChild(postTextElement);
+  const textoCensurado = censurar(postText);
 
-    // Adicionar o post na tela
-    postContainer.prepend(postDiv);
+  // Criar post
+  const postContainer = document.getElementById('posts');
+  const postDiv = document.createElement('div');
+  postDiv.classList.add('post');
 
-    // Fechar o formulário após o envio
-    document.getElementById('postForm').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
+  // Imagem
+  if (postImage) {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(postImage);
+    postDiv.appendChild(img);
+  }
+
+  // Título
+  const h3 = document.createElement('h3');
+  h3.textContent = postTitle;
+  postDiv.appendChild(h3);
+
+  // Texto (já censurado)
+  const p = document.createElement('p');
+  p.textContent = textoCensurado;
+  postDiv.appendChild(p);
+
+  // Adiciona à tela
+  postContainer.prepend(postDiv);
+
+  // Fecha formulário
+  document.getElementById('postForm').style.display = 'none';
+  document.getElementById('overlay').style.display = 'none';
+
+  // Limpa campos
+  document.getElementById('formPost').reset();
 });
